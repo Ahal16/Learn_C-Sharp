@@ -1,0 +1,51 @@
+//ASSIGNMENT
+
+1.Append a text to the existing text in a file. Other files should be
+able to interact with this file only in the Read Mode while your
+application is interacting with the file.
+
+2.Retrieve five characters starting from the third character and
+display it in a console.
+
+3.Copy a file to another destination specified by the user.
+
+CODE:
+
+string file_path = @"E:\.net camp4\myFile.txt";
+
+FileStream fs = File.Create(file_path);
+
+fs.Close();
+if (File.Exists(file_path))
+{
+    string[] content_array = {"Hai", "Bye", "Tata" };
+    File.WriteAllLines(file_path, content_array);
+    //string file_content = File.ReadAllText(file_path);
+    
+    string s1 = "Good Morning!!" ;
+
+    File.AppendAllText(file_path, s1);
+    string fileContent = File.ReadAllText(file_path);
+    Console.WriteLine("File content:\n" + fileContent);
+
+    string result = s1.Substring(2, 5);
+    Console.WriteLine("\nRetrieved result:\n " +result);
+
+    Console.Write("Enter the destination file path: ");
+    string destinationFilePath = Console.ReadLine();
+
+    try
+    {
+        File.Copy(file_path, destinationFilePath, true);
+        Console.WriteLine("File copied successfully.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+    }
+}
+else
+{
+    Console.WriteLine("File Cannot be found");
+}
+Console.ReadKey();
